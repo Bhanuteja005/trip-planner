@@ -193,7 +193,7 @@ const Gallery = () => {
           <motion.h2 
             className="text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 py-20"
           >
-            Nature&#39;s Tranquil Moments
+            Cosmic Travel Gallery
           </motion.h2>
           
           <motion.p 
@@ -202,8 +202,7 @@ const Gallery = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Explore breathtaking landscapes and peaceful retreats from around the world.
-            Immerse yourself in the serenity of nature&#39;s most captivating scenes.
+            Discover unforgettable journeys, breathtaking destinations, and inspiring travel moments from across the universe. Dive into our gallery and let your next adventure begin!
           </motion.p>
           
           {/* Filter Tabs */}
