@@ -32,7 +32,7 @@ const TripPlanner = () => {
 
   // State management
   const [notes, setNotes] = useState([...defaultNotes]);
-  const [editDay, setEditDay] = useState(null);
+  const [editDay, setEditDay] = useState<number | null>(null);
   const [editValue, setEditValue] = useState("");
   const [countdown, setCountdown] = useState("");
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -69,7 +69,7 @@ const TripPlanner = () => {
   };
 
   // Format date for display
-  const formatDate = (date) => {
+  const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
       weekday: 'short',
       month: 'short',
@@ -78,12 +78,12 @@ const TripPlanner = () => {
   };
 
   // Note management handlers
-  const handleEdit = (idx) => {
+  const handleEdit = (idx: number) => {
     setEditDay(idx);
     setEditValue(notes[idx] || "");
   };
 
-  const handleSave = (idx) => {
+  const handleSave = (idx: number) => {
     const updated = [...notes];
     updated[idx] = editValue.trim();
     setNotes(updated);
@@ -96,7 +96,7 @@ const TripPlanner = () => {
     setEditValue("");
   };
 
-  const handleAddNote = (idx) => {
+  const handleAddNote = (idx: number) => {
     if (notes[idx]) {
       handleEdit(idx);
     } else {
@@ -105,21 +105,21 @@ const TripPlanner = () => {
     }
   };
 
-  const handleDeleteNote = (idx) => {
+  const handleDeleteNote = (idx: number) => {
     const updated = [...notes];
     updated[idx] = "";
     setNotes(updated);
   };
 
   // Trip settings handlers
-  const handleDestinationChange = (e) => {
+  const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripSettings({
       ...tripSettings,
       destination: e.target.value
     });
   };
 
-  const handleDateChange = (e) => {
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(e.target.value);
     setTripSettings({
       ...tripSettings,
@@ -127,7 +127,7 @@ const TripPlanner = () => {
     });
   };
 
-  const handleDaysChange = (e) => {
+  const handleDaysChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const days = parseInt(e.target.value);
     if (days > 0 && days <= 14) {
       setTripSettings({

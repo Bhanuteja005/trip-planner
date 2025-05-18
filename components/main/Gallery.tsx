@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Clock, Heart, Map, Maximize2, X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const galleryImages = [
   {
@@ -92,15 +92,25 @@ const staggerContainer = {
   }
 };
 
+type GalleryImage = {
+  src: string;
+  title: string;
+  description: string;
+  location: string;
+  year: string;
+  duration: string;
+  tags: string[];
+};
+
 const Gallery = () => {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState<GalleryImage | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [filter, setFilter] = useState("All");
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
 
   // Get unique tags for filter
-  const allTags = ["All", ...new Set(galleryImages.flatMap(img => img.tags))];
+  const allTags = ["All", ...Array.from(new Set(galleryImages.flatMap(img => img.tags)))];
 
   // Filter images based on selected tag
   const filteredImages = filter === "All" 
@@ -108,32 +118,32 @@ const Gallery = () => {
     : galleryImages.filter(img => img.tags.includes(filter));
 
   // Modal navigation
-  const handleSelect = (idx) => {
+  const handleSelect = (idx: number) => {
     setSelected(galleryImages[idx]);
     setCurrentIndex(idx);
   };
 
-  const handleNext = (e) => {
-    e.stopPropagation();
+  const handleNext = useCallback((e?: React.MouseEvent | KeyboardEvent) => {
+    if (e && "stopPropagation" in e && typeof e.stopPropagation === "function") e.stopPropagation();
     const nextIndex = (currentIndex + 1) % galleryImages.length;
     setSelected(galleryImages[nextIndex]);
     setCurrentIndex(nextIndex);
-  };
+  }, [currentIndex]);
 
-  const handlePrev = (e) => {
-    e.stopPropagation();
+  const handlePrev = useCallback((e?: React.MouseEvent | KeyboardEvent) => {
+    if (e && e.stopPropagation) e.stopPropagation();
     const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
     setSelected(galleryImages[prevIndex]);
     setCurrentIndex(prevIndex);
-  };
+  }, [currentIndex]);
 
-  const toggleFullscreen = (e) => {
+  const toggleFullscreen = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsFullscreen(!isFullscreen);
   };
 
   // Handle favorite toggling
-  const toggleFavorite = (idx) => {
+  const toggleFavorite = (idx: number) => {
     if (favorites.includes(idx)) {
       setFavorites(favorites.filter(id => id !== idx));
     } else {
@@ -143,7 +153,7 @@ const Gallery = () => {
 
   // Keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (!selected) return;
       
       switch (e.key) {
