@@ -197,7 +197,7 @@ const Gallery = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-teal-200 mb-8 max-w-3xl mx-auto text-lg bg-transparent"
+            className="text-purple-500 mb-8 max-w-3xl mx-auto text-lg bg-transparent"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -217,7 +217,7 @@ const Gallery = () => {
                 key={idx}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   filter === tag 
-                    ? "bg-gradient-to-r from-teal-500 to-emerald-600 text-white shadow-lg shadow-teal-700/40" 
+                    ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white shadow-lg shadow-teal-700/40" 
                     : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
                 }`}
                 onClick={() => setFilter(tag)}
