@@ -163,7 +163,7 @@ const Gallery = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selected, currentIndex]);
+  }, [selected, currentIndex, handleNext, handlePrev]);
 
   return (
     <div id="gallery" className="w-full min-h-screen py-20 px-4 md:px-8 bg-transparent relative overflow-hidden">
@@ -183,7 +183,7 @@ const Gallery = () => {
           <motion.h2 
             className="text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 py-20"
           >
-            Nature's Tranquil Moments
+            Nature&#39;s Tranquil Moments
           </motion.h2>
           
           <motion.p 
@@ -193,7 +193,7 @@ const Gallery = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Explore breathtaking landscapes and peaceful retreats from around the world.
-            Immerse yourself in the serenity of nature's most captivating scenes.
+            Immerse yourself in the serenity of nature&#39;s most captivating scenes.
           </motion.p>
           
           {/* Filter Tabs */}
